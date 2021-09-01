@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:news_feed/data/category_info.dart';
 import 'package:news_feed/data/search_type.dart';
+import 'package:news_feed/repository/news_repository.dart';
 import 'package:news_feed/view/components/category_chips.dart';
 import 'package:news_feed/view/components/search_bar.dart';
 import 'package:news_feed/viewmodels/news_list_view_model.dart';
 import 'package:provider/provider.dart';
 
 class NewsListPage extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,18 +41,18 @@ class NewsListPage extends StatelessWidget {
   }
 
   //todo 記事更新処理
-  onRefresh(BuildContext context) {
+  Future<void> onRefresh(BuildContext context) async{
     final viewModel = context.read<NewsListViewModel>();
-    viewModel.getNews(searchType: viewModel.searchType,
+    await viewModel.getNews(searchType: viewModel.searchType,
     keyword: viewModel.keyword,
     category: viewModel.category);
     print("あああ");
   }
 
   //todo キーワード記事取得処理
-  getKeywordNews(BuildContext context, keyword) {
+  Future<void>getKeywordNews(BuildContext context, keyword) async{
     final viewModel = context.read<NewsListViewModel>();
-    viewModel.getNews(
+    await viewModel.getNews(
         searchType: SearchType.KEYWORD,
         keyword: keyword,
         category: categories[0]);
@@ -58,9 +61,9 @@ class NewsListPage extends StatelessWidget {
   }
 
   //todo カテゴリー記事取得処理
-  getCategoryNews(BuildContext context, Category category) {
+  Future<void>getCategoryNews(BuildContext context, Category category) async{
     final viewModel = context.read<NewsListViewModel>();
-    viewModel.getNews(searchType: SearchType.CATEGORY,category: category);
+    await viewModel.getNews(searchType: SearchType.CATEGORY,category: category);
     print("category${category.nameJp}");
   }
 }
