@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:news_feed/data/category_info.dart';
 import 'package:news_feed/data/search_type.dart';
 import 'package:http/http.dart' as http;
+import 'package:news_feed/models/model/news_model.dart';
 
 class NewsRepository {
   static const BASE_URL = "https://newsapi.org/v2/top-headlines?country=js";
@@ -8,10 +10,12 @@ class NewsRepository {
 
 //todo 現時点ではarticleを作成してないのでエラー
   //todo 戻り値を設定する理由は戻り値によって、変更を返すため
-  Future<void> getNews(
+  Future<List<Article>> getNews(
       {required SearchType searchType,
       String? keyword,
       Category? category}) async {
+
+    List<Article> results = [];
     //todo あとで使うからコンストラクタ
     http.Response? response;
     print(
@@ -32,5 +36,17 @@ class NewsRepository {
         response = await http.get(requestUrl);
         break;
     }
+
+    if(response.statusCode == 200){
+      final responseBody = response.body;
+      results = News.fromJson(jsonDecode(responseBody)).articles;
+    }else{
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+
+    return results;
+
   }
 }

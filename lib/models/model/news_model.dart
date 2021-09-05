@@ -4,8 +4,8 @@ part 'news_model.g.dart';
 
 @JsonSerializable()
 class News {
-  final List<Article> article;
-  News({required this.article});
+  final List<Article> articles;
+  News({required this.articles});
   factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
   Map<String, dynamic> toJson() => _$NewsToJson(this);
 }

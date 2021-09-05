@@ -10,6 +10,15 @@ class NewsListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<NewsListViewModel>(context, listen: false);
+    //todo ローディングしてなくて、記事が１つもない時
+    if (!viewModel.isLoading && viewModel.articles.isEmpty){
+      Future(() => viewModel.getNews(searchType: SearchType.CATEGORY,category: categories[0]));
+    }
+
+
+
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.refresh),

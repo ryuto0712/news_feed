@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_feed/data/category_info.dart';
 import 'package:news_feed/data/search_type.dart';
+import 'package:news_feed/models/model/news_model.dart';
 import 'package:news_feed/repository/news_repository.dart';
 
 class NewsListViewModel extends ChangeNotifier {
@@ -31,13 +32,11 @@ class NewsListViewModel extends ChangeNotifier {
 
     _isLoading = true;
     notifyListeners();
-    print("search/$searchType/key$keyword/cate/${_category.nameJp}");
 
-    await _repository.getNews(
-        searchType: _searchType, keyword: _keyword, category: _category);
-
-    _articles = await _repository.getNews(
-        searchType: _searchType, keyword: _keyword, category: _category);
+    _articles =  await _repository.getNews(
+        searchType: _searchType,
+        keyword: _keyword,
+        category: _category);
 
     _isLoading = false;
     notifyListeners();

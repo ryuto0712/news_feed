@@ -8,14 +8,14 @@ part of 'news_model.dart';
 
 News _$NewsFromJson(Map<String, dynamic> json) {
   return News(
-    article: (json['article'] as List<dynamic>)
+    articles: (json['article'] as List<dynamic>)
         .map((e) => Article.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }
 
 Map<String, dynamic> _$NewsToJson(News instance) => <String, dynamic>{
-      'article': instance.article,
+      'article': instance.articles,
     };
 
 Article _$ArticleFromJson(Map<String, dynamic> json) {
