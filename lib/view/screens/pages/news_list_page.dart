@@ -31,7 +31,7 @@ class NewsListPage extends StatelessWidget {
           children: [
             SizedBox(height: 30,),
             SearchBar(onSearch: (keyword) => getKeywordNews(context,keyword),),
-            CategoryChips(onCategorySelected: (category) => getCategoruNews(context,category),),
+            CategoryChips(onCategorySelected: (category) => getCategoryNews(context,category),),
             Expanded(child: Center(child: CircularProgressIndicator())),
           ],
         ),
@@ -51,8 +51,8 @@ class NewsListPage extends StatelessWidget {
     print("keyword取得");
   }
   //todo
-  Future<void>getCategoruNews(BuildContext context, Category category) async{
-    print("${category.nameJp}");
+  Future<void>getCategoryNews(BuildContext context, Category category) async{
+    print("NewsListPage.getCategoryNews / category: ${category.nameJp}");
     final viewModel = Provider.of<NewsListViewModel>(context,listen:false);
     await viewModel.getNews(searchType: SearchType.CATEGORY,category: category);
 

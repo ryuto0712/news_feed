@@ -14,14 +14,14 @@ class NewsRepository {
       {required SearchType searchType,
       String? keyword,
       Category? category}) async {
-
-    List<Article> results = [];
+    List<Article> result = [];
     //todo あとで使うからコンストラクタ
     http.Response? response;
     print(
         "[repository]search/$searchType/key$keyword/cate/${category!.nameJp}");
     switch (searchType) {
       case SearchType.HEAD_LINE:
+        print("NewsRepository.getHeadLines");
         final requestUrl = Uri.parse(BASE_URL + "&apiKey=$API_KEY");
         response = await http.get(requestUrl);
         break;
@@ -39,14 +39,14 @@ class NewsRepository {
 
     if(response.statusCode == 200){
       final responseBody = response.body;
-      results = News.fromJson(jsonDecode(responseBody)).articles;
+      result = News.fromJson(jsonDecode(responseBody)).articles;
     }else{
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load album');
     }
 
-    return results;
+    return result;
 
   }
 }

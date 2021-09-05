@@ -38,6 +38,9 @@ class NewsListViewModel extends ChangeNotifier {
         keyword: _keyword,
         category: _category);
 
+
+
+
     _isLoading = false;
     notifyListeners();
 

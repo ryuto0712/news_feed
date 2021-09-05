@@ -12,14 +12,14 @@ class News {
 
 @JsonSerializable()
 class Article {
-  @JsonKey(name: "publishedAt")final String publishDate;
-  final String? urlToImage;
-  final String? content;
   final String? title;
-  final String? url;
   final String? description;
+  final String? url;
+  final String? urlToImage;
+  @JsonKey(name: "publishedAt") final String? publishDate;
+  final String? content;
 
-  Article({required this.title,required this.description,required this.url,required this.urlToImage,required this.publishDate,required this.content});
+  Article({this.title,this.description,this.url,this.urlToImage,this.publishDate,this.content});
 
   factory Article.fromJson(Map<String, dynamic> json) => _$ArticleFromJson(json);
   Map<String, dynamic> toJson() => _$ArticleToJson(this);
