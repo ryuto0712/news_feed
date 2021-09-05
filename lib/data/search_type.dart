@@ -1,5 +1,5 @@
-enum SearchType {
+enum SearchType{
   HEAD_LINE,
-  KEYWORD,
+  KRYWORD,
   CATEGORY
 }

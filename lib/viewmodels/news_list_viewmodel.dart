@@ -18,23 +18,24 @@ class NewsListViewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  //todo ここでstateを変更する処理をするのか
   Future<void> getNews(
-      {required SearchType searchType, String? keyword, Category? category}) async{
+      {required SearchType searchType,
+      String? keyword,
+      Category? category}) async {
     _searchType = searchType;
     _keyword = keyword ?? "";
     _category = category ?? categories[0];
 
     _isLoading = true;
     notifyListeners();
-    print("search:$searchType/key:$keyword/category:${category!.nameJp}");
-    //todo
+    print("search/$searchType/key$keyword/cate/${_category.nameJp}");
+
     await _repository.getNews(
         searchType: _searchType, keyword: _keyword, category: _category);
+
     _isLoading = false;
     notifyListeners();
 
     //todo
-
   }
 }
