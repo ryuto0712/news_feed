@@ -32,6 +32,7 @@ dependencies:
   http: ^0.13.3
   json_annotation: ^4.0.1
   js: ^0.6.3
+  cached_network_image: ^3.1.0
 
 dev_dependencies:
   flutter_test:

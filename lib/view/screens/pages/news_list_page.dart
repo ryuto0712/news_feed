@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:news_feed/data/category_info.dart';
 import 'package:news_feed/data/search_type.dart';
+import 'package:news_feed/view/components/article_tile.dart';
 import 'package:news_feed/view/components/category_chips.dart';
 import 'package:news_feed/view/components/search_bar.dart';
 import 'package:news_feed/viewmodels/news_list_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class NewsListPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
+
     final viewModel = Provider.of<NewsListViewModel>(context, listen: false);
     //todo ローディングしてなくて、記事が１つもない時
     if (!viewModel.isLoading && viewModel.articles.isEmpty){
@@ -32,7 +33,17 @@ class NewsListPage extends StatelessWidget {
             SizedBox(height: 30,),
             SearchBar(onSearch: (keyword) => getKeywordNews(context,keyword),),
             CategoryChips(onCategorySelected: (category) => getCategoryNews(context,category),),
-            Expanded(child: Center(child: CircularProgressIndicator())),
+            Expanded(child: Consumer<NewsListViewModel>(
+                builder: (context,model,child){
+                  return model.isLoading
+                      ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                    : ListView.builder(itemCount: model.articles.length,
+                    itemBuilder: (context, int position)
+                    => ArticleTile(article: model.articles[position], onArticleClicked: (article) => _openArticleWebPage(article,context))
+                  );
+                })),
           ],
         ),
       ),
@@ -56,5 +67,9 @@ class NewsListPage extends StatelessWidget {
     final viewModel = Provider.of<NewsListViewModel>(context,listen:false);
     await viewModel.getNews(searchType: SearchType.CATEGORY,category: category);
 
+  }
+
+  _openArticleWebPage(article, BuildContext context) {
+    print("${article.url}");
   }
 }
