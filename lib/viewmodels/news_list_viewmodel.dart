@@ -27,8 +27,8 @@ class NewsListViewModel extends ChangeNotifier {
       String? keyword,
       Category? category}) async {
     _searchType = searchType;
-    _keyword = keyword ?? "";
-    _category = category ?? categories[0];
+    _keyword = keyword ?? _keyword;
+    _category = category ?? _category;
 
     _isLoading = true;
     notifyListeners();
@@ -38,8 +38,7 @@ class NewsListViewModel extends ChangeNotifier {
         keyword: _keyword,
         category: _category);
 
-
-
+    print("searchType: $_searchType / keyword: $_keyword / category: $_category / articles: ${_articles[0].title}");
 
     _isLoading = false;
     notifyListeners();

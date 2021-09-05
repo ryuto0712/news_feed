@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:news_feed/models/model/news_model.dart';
 
 class NewsRepository {
-  static const BASE_URL = "https://newsapi.org/v2/top-headlines?country=js";
+  static const BASE_URL = "https://newsapi.org/v2/top-headlines?country=jp";
   static const API_KEY = "427ede87c3774c88ba1d372e0293abe5";
 
 //todo 現時点ではarticleを作成してないのでエラー
@@ -27,7 +27,7 @@ class NewsRepository {
         break;
       case SearchType.KRYWORD:
         //todo パラメータを重ねる時は＆を使う
-        final requestUrl = Uri.parse(BASE_URL + "&q=$keyword&apiKey=$API_KEY");
+        final requestUrl = Uri.parse(BASE_URL + "&q=$keyword&pageSize=30&apiKey=$API_KEY");
         response = await http.get(requestUrl);
         break;
       case SearchType.CATEGORY:
