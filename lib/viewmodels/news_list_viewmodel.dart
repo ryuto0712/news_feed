@@ -18,6 +18,9 @@ class NewsListViewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  List<Article> _articles = [];
+  List<Article> get articles => _articles;
+
   Future<void> getNews(
       {required SearchType searchType,
       String? keyword,
@@ -31,6 +34,9 @@ class NewsListViewModel extends ChangeNotifier {
     print("search/$searchType/key$keyword/cate/${_category.nameJp}");
 
     await _repository.getNews(
+        searchType: _searchType, keyword: _keyword, category: _category);
+
+    _articles = await _repository.getNews(
         searchType: _searchType, keyword: _keyword, category: _category);
 
     _isLoading = false;
