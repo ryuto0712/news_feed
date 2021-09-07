@@ -17,8 +17,7 @@ class NewsRepository {
     List<Article> result = [];
     //todo あとで使うからコンストラクタ
     http.Response? response;
-    print(
-        "[repository]search/$searchType/key$keyword/cate/${category!.nameJp}");
+
     switch (searchType) {
       case SearchType.HEAD_LINE:
         print("NewsRepository.getHeadLines");
@@ -32,7 +31,7 @@ class NewsRepository {
         break;
       case SearchType.CATEGORY:
         final requestUrl = Uri.parse(
-            BASE_URL + "&category=${category.nameEn}&apiKey=$API_KEY");
+            BASE_URL + "&category=${category?.nameEn}&apiKey=$API_KEY");
         response = await http.get(requestUrl);
         break;
     }
